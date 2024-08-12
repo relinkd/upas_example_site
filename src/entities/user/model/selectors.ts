@@ -1,13 +1,13 @@
 import { createSelector } from '@reduxjs/toolkit';
 import { State } from 'app/store';
 
-const getMarketplace = (state: State) => state.marketplace;
+const getUser = (state: State) => state.user;
 
-const selectIssuers = createSelector(getMarketplace, ({ issuers }) => ({
+const selectIssuers = createSelector(getUser, ({ issuers }) => ({
   issuers
 }));
 
 export const selectors = {
-  getMarketplace,
+  getUser,
   selectIssuers,
 };

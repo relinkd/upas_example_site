@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { MarketplaceState } from 'entities/marketplace/model';
+import { UserState } from 'entities/user/model';
 import { PersistConfig, persistReducer, persistStore } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import createSagaMiddleware from 'redux-saga';
@@ -12,14 +12,14 @@ type MyPersistConfig<T> = PersistConfig<T> & { whitelist: (keyof T)[] };
 
 const sagaMiddleware = createSagaMiddleware();
 
-const marketplacePersistConfig: MyPersistConfig<MarketplaceState> = {
-  key: 'marketplace',
+const userPersistConfig: MyPersistConfig<UserState> = {
+  key: 'user',
   storage,
   whitelist: [],
 };
 const reducers = {
   ...reducer,
-  marketplace: persistReducer(marketplacePersistConfig, reducer.marketplace),
+  user: persistReducer(userPersistConfig, reducer.user),
 };
 
 export const store = configureStore({
