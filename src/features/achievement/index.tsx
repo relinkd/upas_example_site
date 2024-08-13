@@ -3,6 +3,7 @@ import { useShallowSelector } from 'shared';
 import { userModel } from 'entities/user';
 import { idlFactory } from '../../../declarations/achievement';
 import { createActorContext , useAuth } from "@ic-reactor/react";
+import { Principal } from '@dfinity/principal';
 
 export const Achievement = ({ canisterId }: { canisterId: string}) => {
     const {
@@ -19,15 +20,15 @@ export const Achievement = ({ canisterId }: { canisterId: string}) => {
       
       return (
         <AchievementProvider>
-            <AchievementInner useQueryCall={useAchievementQueryCall} />
+            <AchievementInner useQueryCall={useAchievementQueryCall} useUpdateCall={useAchivementUpdateCall} />
         </AchievementProvider>
       )
 };
 
-export const AchievementInner = ({ useQueryCall }: { useQueryCall: any}) => {
+export const AchievementInner = ({ useQueryCall, useUpdateCall }: { useQueryCall: any, useUpdateCall: any}) => {
     const { identity } = useAuth();
     const { identity_wallet } = useShallowSelector(userModel.selectors.getUser);
-    
+
     const { data: eligible, call: fetchEligigble }: { data: any, call: any} = useQueryCall({
         functionName: "checkAchievementEligibility",
         args: [
@@ -35,8 +36,26 @@ export const AchievementInner = ({ useQueryCall }: { useQueryCall: any}) => {
             []
         ]
     })
+
+    const { call: generateHash }: { call: any} = useUpdateCall({
+        functionName: "generateHashToIdentityWallet",
+        args: [
+            Principal.fromText(identity_wallet as string || identity!.getPrincipal()!.toText()),
+            []
+        ]
+    })
    
-    console.log(eligible, 'achievement eligible')
+    let status = '';
+
+    if(!eligible) {
+        status = 'Loading eligibility'
+    } else if(eligible?.Ok && !identity_wallet) {
+        status = 'Select Identity Wallet'
+    } else if (eligible?.Ok && identity_wallet) {
+        status = 'Receive Achievement'
+    } else {
+        status = 'Not eligible'
+    }
 
     const sendMessage = () => {
       const popup = window.open("http://localhost:5173/", "receiver", "width=1000,height=500");
@@ -50,13 +69,28 @@ export const AchievementInner = ({ useQueryCall }: { useQueryCall: any}) => {
       }, 4000);
     }
 
+    const generateHashFunc = async () => {
+        const result = await generateHash();
+        console.log(result);
+
+        const popup = window.open("http://localhost:5173/", "receiver", "width=1000,height=500");
+      
+        setTimeout(() => {
+            if (popup) {
+            popup.postMessage({payload: identity?.getPrincipal()?.toText(), type: 'SIGN_SIGNATURE'}, "http://localhost:5173");
+            } else {
+            return
+            } 
+        }, 4000);
+    }
+
     return (
         <Button variant="contained" sx={{
           backgroundColor: 'green'
         }} onClick={() => {
-          if(!identity_wallet) sendMessage();
+          if(eligible?.Ok && !identity_wallet) sendMessage();
+          else if(eligible?.Ok && identity_wallet) generateHashFunc();
 
-
-        }}>Get achievement</Button>
+        }}>{status}</Button>
   );
 }
