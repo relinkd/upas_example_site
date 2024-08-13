@@ -15,7 +15,7 @@ export const TestPage = () => {
     
     setTimeout(() => {
       if (popup) {
-        popup.postMessage({payload: 'test', type: 'SELECT_IDENTITY'}, "http://localhost:5173");
+        popup.postMessage({payload: '', type: 'SELECT_IDENTITY'}, "http://localhost:5173");
       } else {
         return
       } 

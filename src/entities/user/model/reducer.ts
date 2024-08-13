@@ -7,11 +7,13 @@ export type UserState = {
     type: String
     data: String
   } | undefined
+  identity_wallet: String | undefined
 };
 
 const initialUserState: UserState = {
   issuers: [],
-  postMessage: undefined
+  postMessage: undefined,
+  identity_wallet: undefined
 };
 
 const userSlice = createSlice({

@@ -3,11 +3,27 @@ import { ModalContainer } from 'entities/modal';
 
 import { withPersistor, withProviders, withRouter, withStore, withTheme, WithICConnect, WithAchievementProvider, WithPostMessage } from './providers';
 import { RouteManager } from './router';
+import { useEffect } from 'react';
+import { useShallowSelector } from 'shared';
+import { userModel } from 'entities/user';
+import { useDispatch } from 'react-redux';
 
 import 'react-toastify/dist/ReactToastify.css';
 import './appStyles/index.scss';
 
 const App = () => {
+
+  const { postMessage } = useShallowSelector(userModel.selectors.getUser)
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    if(postMessage?.type === "RETURN_IDENTITY") {
+      dispatch(userModel.userActions.updateUserState({
+        identity_wallet: postMessage.data
+      }))
+    }
+  }, [postMessage])
+
   return (
     <>
       <RouteManager />
