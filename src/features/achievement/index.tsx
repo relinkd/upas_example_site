@@ -66,7 +66,7 @@ export const AchievementInner = ({ useQueryCall, useUpdateCall }: { useQueryCall
         } else {
           return
         } 
-      }, 4000);
+      }, 2000);
     }
 
     const generateHashFunc = async () => {
@@ -77,11 +77,11 @@ export const AchievementInner = ({ useQueryCall, useUpdateCall }: { useQueryCall
       
         setTimeout(() => {
             if (popup) {
-            popup.postMessage({payload: identity?.getPrincipal()?.toText(), type: 'SIGN_SIGNATURE'}, "http://localhost:5173");
+            popup.postMessage({payload: identity?.getPrincipal()?.toText(), type: 'SIGN_SIGNATURE', achievement: 'ctiya-peaaa-aaaaa-qaaja-cai', reputation_module: 'cuj6u-c4aaa-aaaaa-qaajq-cai'}, "http://localhost:5173");
             } else {
-            return
+                return
             } 
-        }, 4000);
+        }, 2000);
     }
 
     return (

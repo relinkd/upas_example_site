@@ -10,18 +10,6 @@ export const TestPage = () => {
   const { identity } = useAuth()
 
   console.log(identity?.getPrincipal()?.toText());
- 
-  const sendMessage = () => {
-    const popup = window.open("http://localhost:5173/", "receiver", "width=400,height=400");
-    
-    setTimeout(() => {
-      if (popup) {
-        popup.postMessage({payload: '', type: 'SELECT_IDENTITY'}, "http://localhost:5173");
-      } else {
-        return
-      } 
-    }, 4000);
-  }
 
   return (
     <Layout>
