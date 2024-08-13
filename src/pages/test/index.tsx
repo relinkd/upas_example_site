@@ -1,10 +1,14 @@
 import { Stack, Button } from '@mui/material';
 import { useRef, useEffect } from 'react';
 import { Layout } from 'widgets';
+import { useAuth } from '@ic-reactor/react';
 
 export const TestPage = () => {
 
   const ref = useRef<HTMLIFrameElement | undefined>();
+  const { identity } = useAuth()
+
+  console.log(identity?.getPrincipal()?.toText());
  
   const sendMessage = () => {
     const popup = window.open("http://localhost:5173/", "receiver", "width=400,height=400");
