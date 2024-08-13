@@ -8,9 +8,11 @@ export const WithPostMessage: FC<PropsWithChildren> = ({ children }) => {
 
     useEffect(() => {
         const handleMessage = (event: MessageEvent) => {
-          if (event.origin !== "http://localhost:5174") {
+          if (event.origin !== "http://localhost:5173") {
             return;
           }
+
+          console.log(event.data, 'event data')
 
           dispatch(userModel.userActions.updateUserState({
             postMessage: {

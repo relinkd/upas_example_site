@@ -1,7 +1,7 @@
 import { ToastContainer } from 'react-toastify';
 import { ModalContainer } from 'entities/modal';
 
-import { withPersistor, withProviders, withRouter, withStore, withTheme, WithICConnect, WithAchievementProvider } from './providers';
+import { withPersistor, withProviders, withRouter, withStore, withTheme, WithICConnect, WithAchievementProvider, WithPostMessage } from './providers';
 import { RouteManager } from './router';
 
 import 'react-toastify/dist/ReactToastify.css';
@@ -17,4 +17,4 @@ const App = () => {
   );
 };
 
-export default withProviders(withRouter, withTheme, withStore, withPersistor, WithICConnect, WithAchievementProvider)(App);
+export default withProviders(withRouter, withTheme, withStore, withPersistor, WithICConnect, WithAchievementProvider, WithPostMessage)(App);

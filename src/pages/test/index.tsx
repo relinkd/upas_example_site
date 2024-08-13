@@ -5,23 +5,6 @@ import { Layout } from 'widgets';
 export const TestPage = () => {
 
   const ref = useRef<HTMLIFrameElement | undefined>();
-
-  useEffect(() => {
-    const handleMessage = (event: MessageEvent) => {
-      if (event.origin !== "http://localhost:5173") {
-        return;
-      }
-
-      console.log('Received message:', event.data);
-    };
-
-    window.addEventListener('message', handleMessage);
-
-    return () => {
-      window.removeEventListener('message', handleMessage);
-    };
-  }, []);
-
  
   const sendMessage = () => {
     const popup = window.open("http://localhost:5173/", "receiver", "width=400,height=400");
@@ -29,7 +12,6 @@ export const TestPage = () => {
     setTimeout(() => {
       if (popup) {
         popup.postMessage({payload: 'test', type: 'SELECT_IDENTITY'}, "http://localhost:5173");
-        console.log('Message have sent');
       } else {
         return
       } 
