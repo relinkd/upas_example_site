@@ -2,6 +2,7 @@ import { Stack, Button } from '@mui/material';
 import { useRef, useEffect } from 'react';
 import { Layout } from 'widgets';
 import { useAuth } from '@ic-reactor/react';
+import { Achievement } from 'features';
 
 export const TestPage = () => {
 
@@ -25,11 +26,7 @@ export const TestPage = () => {
   return (
     <Layout>
       <Stack flexDirection="column" alignItems="center" width={1} maxWidth={1}>
-        <Button variant="contained" sx={{
-          backgroundColor: 'green'
-        }} onClick={() => {
-          sendMessage()
-        }}>Get achievement</Button>
+        <Achievement canisterId='ctiya-peaaa-aaaaa-qaaja-cai'/>
       </Stack>
     </Layout>
   );

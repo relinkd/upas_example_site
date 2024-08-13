@@ -1,7 +1,7 @@
 import { ToastContainer } from 'react-toastify';
 import { ModalContainer } from 'entities/modal';
 
-import { withPersistor, withProviders, withRouter, withStore, withTheme, WithICConnect, WithAchievementProvider, WithPostMessage } from './providers';
+import { withPersistor, withProviders, withRouter, withStore, withTheme, WithICConnect, WithPostMessage } from './providers';
 import { RouteManager } from './router';
 import { useEffect } from 'react';
 import { useShallowSelector } from 'shared';
@@ -33,4 +33,4 @@ const App = () => {
   );
 };
 
-export default withProviders(withRouter, withTheme, withStore, withPersistor, WithICConnect, WithAchievementProvider, WithPostMessage)(App);
+export default withProviders(withRouter, withTheme, withStore, withPersistor, WithICConnect, WithPostMessage)(App);

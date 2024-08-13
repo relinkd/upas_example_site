@@ -1,10 +1,45 @@
 import { Stack, Button } from '@mui/material';
-import { Layout } from 'widgets';
+import { useShallowSelector } from 'shared';
+import { userModel } from 'entities/user';
+import { idlFactory } from '../../../declarations/achievement';
+import { createActorContext , useAuth } from "@ic-reactor/react";
 
-export const Achievement = () => {
+export const Achievement = ({ canisterId }: { canisterId: string}) => {
+    const {
+        ActorProvider: AchievementProvider,
+        useActorState: useAchievementState,
+        useMethod: useAchievementMethod,
+        useQueryCall: useAchievementQueryCall,
+        useUpdateCall: useAchivementUpdateCall,
+      } = createActorContext<any>({
+        canisterId,
+        idlFactory,
+        withDevtools: true,
+      })
+      
+      return (
+        <AchievementProvider>
+            <AchievementInner useQueryCall={useAchievementQueryCall} />
+        </AchievementProvider>
+      )
+};
+
+export const AchievementInner = ({ useQueryCall }: { useQueryCall: any}) => {
+    const { identity } = useAuth();
+    const { identity_wallet } = useShallowSelector(userModel.selectors.getUser);
+    
+    const { data: eligible, call: fetchEligigble }: { data: any, call: any} = useQueryCall({
+        functionName: "checkAchievementEligibility",
+        args: [
+            identity?.getPrincipal(),
+            []
+        ]
+    })
    
+    console.log(eligible, 'achievement eligible')
+
     const sendMessage = () => {
-      const popup = window.open("http://localhost:5173/", "receiver", "width=400,height=400");
+      const popup = window.open("http://localhost:5173/", "receiver", "width=1000,height=500");
       
       setTimeout(() => {
         if (popup) {
@@ -14,17 +49,14 @@ export const Achievement = () => {
         } 
       }, 4000);
     }
-  
+
     return (
-      <Layout>
-        <Stack flexDirection="column" alignItems="center" width={1} maxWidth={1}>
-          <Button variant="contained" sx={{
-            backgroundColor: 'green'
-          }} onClick={() => {
-            sendMessage()
-          }}>Get achievement</Button>
-        </Stack>
-      </Layout>
-    );
-  };
-  
+        <Button variant="contained" sx={{
+          backgroundColor: 'green'
+        }} onClick={() => {
+          if(!identity_wallet) sendMessage();
+
+
+        }}>Get achievement</Button>
+  );
+}

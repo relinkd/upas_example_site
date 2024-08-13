@@ -4,6 +4,7 @@
   "private": true,
   "type": "module",
   "dependencies": {
+    "@dfinity/principal": "^1.4.0",
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
     "@esbuild-plugins/node-globals-polyfill": "^0.2.3",

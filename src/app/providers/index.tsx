@@ -3,7 +3,6 @@ export * from './with-theme';
 export * from './with-store';
 export * from './with-ic-connect';
 export * from './with-persistor';
-export * from './with-achievement';
 export * from './with-postmessage';
 
 export const withProviders =
