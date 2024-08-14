@@ -1,5 +1,5 @@
-import { Stack, Button } from '@mui/material';
-import { useShallowSelector } from 'shared';
+import { Stack, Button, Typography } from '@mui/material';
+import { useShallowSelector, COLOR_PURPURE, COLOR_WH, COLOR_BLACK, GradientButtonWraper, BORDER_RADIUS_M } from 'shared';
 import { userModel } from 'entities/user';
 import { idlFactory } from '../../../declarations/achievement';
 import { createActorContext , useAuth } from "@ic-reactor/react";
@@ -27,7 +27,8 @@ export const Achievement = ({ canisterId }: { canisterId: string}) => {
 
 export const AchievementInner = ({ useQueryCall, useUpdateCall }: { useQueryCall: any, useUpdateCall: any}) => {
     const { identity } = useAuth();
-    const { identity_wallet } = useShallowSelector(userModel.selectors.getUser);
+    const { identity_wallet, postMessage } = useShallowSelector(userModel.selectors.getUser);
+    const isAchievementReceived = postMessage?.type === 'RECEIVED_ACHIEVEMENT';
 
     const { data: eligible, call: fetchEligigble }: { data: any, call: any} = useQueryCall({
         functionName: "checkAchievementEligibility",
@@ -51,6 +52,8 @@ export const AchievementInner = ({ useQueryCall, useUpdateCall }: { useQueryCall
         status = 'Loading eligibility'
     } else if(eligible?.Ok && !identity_wallet) {
         status = 'Select Identity Wallet'
+    } else if(isAchievementReceived) {
+      status = 'Achievement Received'
     } else if (eligible?.Ok && identity_wallet) {
         status = 'Receive Achievement'
     } else {
@@ -85,12 +88,33 @@ export const AchievementInner = ({ useQueryCall, useUpdateCall }: { useQueryCall
     }
 
     return (
-        <Button variant="contained" sx={{
-          backgroundColor: 'green'
-        }} onClick={() => {
-          if(eligible?.Ok && !identity_wallet) sendMessage();
-          else if(eligible?.Ok && identity_wallet) generateHashFunc();
+      <Stack sx={{
+        marginTop: 20,
+        justifyContent: 'center',
+        flexDirection: 'row',
+        flexWrap: 'wrap'
+      }}>
+        <Typography sx={{ textAlign: 'center' }} width={1} variant='h2'>Cool ICP Project</Typography>
 
-        }}>{status}</Button>
+        <GradientButtonWraper sx={{ borderRadius: BORDER_RADIUS_M, marginTop: 10 }}>
+          <Stack width="200px" pt={10} sx={{ background: COLOR_WH, padding: '20px', borderRadius: BORDER_RADIUS_M }}>
+            <Typography sx={{ textAlign: 'center' }}>You can check your eligibility and receive achievement "Early Adopter" with this button</Typography>
+            <Button disabled={isAchievementReceived} variant="contained" sx={{
+              backgroundColor: COLOR_PURPURE,
+              marginTop: 5,
+              '&:hover': {
+                color: COLOR_WH
+              },
+              '&:disabled': {
+                color: COLOR_BLACK
+              }
+            }} onClick={() => {
+              if(eligible?.Ok && !identity_wallet) sendMessage();
+              else if(eligible?.Ok && identity_wallet) generateHashFunc();
+
+            }}>{status}</Button>
+          </Stack>
+        </GradientButtonWraper>
+      </Stack>
   );
 }

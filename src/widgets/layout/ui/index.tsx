@@ -50,7 +50,6 @@ export const Layout: FC<PropsWithChildren<LayoutProps>> = ({ children, bg = null
 
   return (
     <StyledLayout className={bg || ''}>
-      <Header />
       <Container
         sx={{
           pt: 2,
@@ -61,7 +60,6 @@ export const Layout: FC<PropsWithChildren<LayoutProps>> = ({ children, bg = null
       >
         {children}
       </Container>
-      <Footer />
     </StyledLayout>
   );
 };
