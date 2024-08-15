@@ -14,7 +14,7 @@ export const TestPage = () => {
   return (
     <Layout>
       <Stack flexDirection="column" alignItems="center" width={1} maxWidth={1}>
-        <Achievement canisterId='ctiya-peaaa-aaaaa-qaaja-cai'/>
+        <Achievement canisterId={process.env.CANISTER_ID_ACHIEVEMENT!}/>
       </Stack>
     </Layout>
   );
