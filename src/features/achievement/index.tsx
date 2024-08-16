@@ -69,7 +69,7 @@ export const AchievementInner = ({ useQueryCall, useUpdateCall }: { useQueryCall
         } else {
           return
         } 
-      }, 2000);
+      }, 500);
     }
 
     const generateHashFunc = async () => {
@@ -84,7 +84,7 @@ export const AchievementInner = ({ useQueryCall, useUpdateCall }: { useQueryCall
             } else {
                 return
             } 
-        }, 2000);
+        }, 1000);
     }
 
     return (
