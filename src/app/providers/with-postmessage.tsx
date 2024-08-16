@@ -8,7 +8,7 @@ export const WithPostMessage: FC<PropsWithChildren> = ({ children }) => {
 
     useEffect(() => {
         const handleMessage = (event: MessageEvent) => {
-          if (event.origin !== "http://localhost:5173") {
+          if (event.origin !== import.meta.env.VITE_UPAS_HUB) {
             return;
           }
 

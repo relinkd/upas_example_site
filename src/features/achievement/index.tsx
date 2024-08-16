@@ -61,11 +61,11 @@ export const AchievementInner = ({ useQueryCall, useUpdateCall }: { useQueryCall
     }
 
     const sendMessage = () => {
-      const popup = window.open("http://localhost:5173/", "receiver", "width=1000,height=500");
+      const popup = window.open(import.meta.env.VITE_UPAS_HUB, "receiver", "width=1000,height=500");
       
       setTimeout(() => {
         if (popup) {
-          popup.postMessage({payload: '', type: 'SELECT_IDENTITY'}, "http://localhost:5173");
+          popup.postMessage({payload: '', type: 'SELECT_IDENTITY', reputation_requester: window.location.origin}, import.meta.env.VITE_UPAS_HUB);
         } else {
           return
         } 
@@ -76,11 +76,11 @@ export const AchievementInner = ({ useQueryCall, useUpdateCall }: { useQueryCall
         const result = await generateHash();
         console.log(result);
 
-        const popup = window.open("http://localhost:5173/", "receiver", "width=1000,height=500");
+        const popup = window.open(import.meta.env.VITE_UPAS_HUB, "receiver", "width=1000,height=500");
       
         setTimeout(() => {
             if (popup) {
-            popup.postMessage({payload: identity?.getPrincipal()?.toText(), type: 'SIGN_SIGNATURE', achievement: process.env.CANISTER_ID_ACHIEVEMENT, reputation_module: process.env.CANISTER_ID_REPUTATION_MODULE}, "http://localhost:5173");
+            popup.postMessage({payload: identity?.getPrincipal()?.toText(), type: 'SIGN_SIGNATURE', achievement: process.env.CANISTER_ID_ACHIEVEMENT, reputation_module: process.env.CANISTER_ID_REPUTATION_MODULE, reputation_requester: window.location.origin}, import.meta.env.VITE_UPAS_HUB);
             } else {
                 return
             } 
