@@ -61,22 +61,24 @@ export const AchievementInner = ({ useQueryCall, useUpdateCall }: { useQueryCall
     }
 
     const sendMessage = () => {
-      const popup = window.open(import.meta.env.VITE_UPAS_HUB, "receiver", "width=1000,height=500");
+      const popup = window.open(import.meta.env.VITE_UPAS_HUB, "_blank");
+
+      console.log('message sent')
       
       setTimeout(() => {
         if (popup) {
-          popup.postMessage({payload: '', type: 'SELECT_IDENTITY', reputation_requester: window.location.origin}, import.meta.env.VITE_UPAS_HUB);
+          popup.postMessage({payload: '', type: 'SELECT_IDENTITY', reputation_requester: window.location.origin, achievement: process.env.CANISTER_ID_ACHIEVEMENT, reputation_module: process.env.CANISTER_ID_REPUTATION_MODULE}, import.meta.env.VITE_UPAS_HUB);
         } else {
           return
         } 
-      }, 500);
+      }, 2000);
     }
 
     const generateHashFunc = async () => {
         const result = await generateHash();
         console.log(result);
 
-        const popup = window.open(import.meta.env.VITE_UPAS_HUB, "receiver", "width=1000,height=500");
+        const popup = window.open(import.meta.env.VITE_UPAS_HUB, "_blank");
       
         setTimeout(() => {
             if (popup) {
@@ -84,7 +86,7 @@ export const AchievementInner = ({ useQueryCall, useUpdateCall }: { useQueryCall
             } else {
                 return
             } 
-        }, 1000);
+        }, 2000);
     }
 
     return (

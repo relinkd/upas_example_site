@@ -23,7 +23,7 @@ export const ConnectButton = () => {
         }
       }} onClick={() => {
             login({
-              identityProvider: 'http://c2lt4-zmaaa-aaaaa-qaaiq-cai.localhost:4943/#authorize'
+              identityProvider: 'http://a3shf-5eaaa-aaaaa-qaafa-cai.localhost:4943/#authorize'
             })
       }}>Connect</Button>
     </GradientButtonWraper>
