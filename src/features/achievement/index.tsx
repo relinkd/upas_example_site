@@ -28,16 +28,19 @@ export const Achievement = ({ canisterId }: { canisterId: string}) => {
 export const AchievementInner = ({ useQueryCall, useUpdateCall }: { useQueryCall: any, useUpdateCall: any}) => {
     const { identity } = useAuth();
     const { identity_wallet, postMessage } = useShallowSelector(userModel.selectors.getUser);
-    const isAchievementReceived = postMessage?.type === 'RECEIVED_ACHIEVEMENT';
-
-    const { data: eligible, call: fetchEligigble }: { data: any, call: any} = useQueryCall({
-        functionName: "checkAchievementEligibility",
-        args: [
-            identity?.getPrincipal(),
-            []
-        ]
+    const { data: hash, call: refetchHash }: { data: any, call: any} = useQueryCall({
+      functionName: "checkAchievementEligibility",
+      args: [
+          identity?.getPrincipal(),
+          []
+      ]
     })
-
+    const { data: eligible, call: fetchEligigble }: { data: any, call: any} = useQueryCall({
+      functionName: "getPrincipalToHashValue",
+      args: [
+          identity?.getPrincipal()
+      ]
+    })
     const { call: generateHash }: { call: any} = useUpdateCall({
         functionName: "generateHashToIdentityWallet",
         args: [
@@ -45,15 +48,17 @@ export const AchievementInner = ({ useQueryCall, useUpdateCall }: { useQueryCall
             []
         ]
     })
+
+    const isAchievementReceived = postMessage?.type === 'RECEIVED_ACHIEVEMENT' || (hash?.Ok && !postMessage?.type);
    
     let status = '';
 
     if(!eligible) {
         status = 'Loading eligibility'
-    } else if(eligible?.Ok && !identity_wallet) {
-        status = 'Select Identity Wallet'
     } else if(isAchievementReceived) {
       status = 'Achievement Received'
+    } else if(eligible?.Ok && !identity_wallet) {
+        status = 'Select Identity Wallet'
     } else if (eligible?.Ok && identity_wallet) {
         status = 'Receive Achievement'
     } else {
@@ -111,6 +116,7 @@ export const AchievementInner = ({ useQueryCall, useUpdateCall }: { useQueryCall
                 color: COLOR_BLACK
               }
             }} onClick={() => {
+              if(isAchievementReceived) return
               if(eligible?.Ok && !identity_wallet) sendMessage();
               else if(eligible?.Ok && identity_wallet) generateHashFunc();
 
