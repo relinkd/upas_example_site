@@ -1,0 +1,18 @@
+{
+    "canisters": {
+      "example_frontend": {
+        "source": [
+          "src/example_frontend/build"
+        ],
+        "type": "assets",
+        "workspace": "hub"
+      }
+    },
+    "defaults": {
+      "build": {
+        "packtool": "npm run --silent sources"
+      }
+    },
+    "output_env_file": ".env",
+    "version": 2
+}
