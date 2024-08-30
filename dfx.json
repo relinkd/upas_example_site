@@ -5,9 +5,20 @@
           "src/example_frontend/build"
         ],
         "type": "assets",
-        "workspace": "hub"
+        "workspace": "example_frontend"
       }
-    },
+     },
+     "example_backend": {
+        "dependencies": [
+            "example_frontend"
+        ],
+        "candid": "src/example_backend/example_backend.did",
+        "package": "example_backend",
+        "type": "rust",
+        "declarations": {
+          "node_compatibility": true
+        }
+      },
     "defaults": {
       "build": {
         "packtool": "npm run --silent sources"
