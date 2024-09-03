@@ -1,0 +1,9 @@
+type Message = record { author : principal; message : text };
+type Result = variant { Ok; Err : text };
+service : {
+  caller : () -> (principal) query;
+  getMessages : (nat64, nat64) -> (vec Message) query;
+  getPrincipalToIsPosted : (principal) -> (bool) query;
+  isController : () -> (bool) query;
+  writeMessage : (text) -> (Result);
+}

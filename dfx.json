@@ -4,21 +4,21 @@
         "source": [
           "src/example_frontend/build"
         ],
+        "dependencies": [
+            "example_backend"
+        ],
         "type": "assets",
         "workspace": "example_frontend"
-      }
-     },
-     "example_backend": {
-        "dependencies": [
-            "example_frontend"
-        ],
+      },
+      "example_backend": {
         "candid": "src/example_backend/example_backend.did",
         "package": "example_backend",
         "type": "rust",
         "declarations": {
           "node_compatibility": true
         }
-      },
+      }
+     },
     "defaults": {
       "build": {
         "packtool": "npm run --silent sources"
