@@ -4,6 +4,7 @@ import { userModel } from 'entities/user';
 import { idlFactory } from '../../../declarations/achievement';
 import { createActorContext , useAuth } from "@ic-reactor/react";
 import { Principal } from '@dfinity/principal';
+import { useEffect } from 'react';
 
 export const Achievement = ({ canisterId }: { canisterId: string}) => {
     const {
@@ -29,16 +30,16 @@ export const AchievementInner = ({ useQueryCall, useUpdateCall }: { useQueryCall
     const { identity } = useAuth();
     const { identity_wallet, postMessage } = useShallowSelector(userModel.selectors.getUser);
     const { data: hash, call: refetchHash }: { data: any, call: any} = useQueryCall({
-      functionName: "checkAchievementEligibility",
-      args: [
-          identity?.getPrincipal(),
-          []
-      ]
-    })
-    const { data: eligible, call: fetchEligigble }: { data: any, call: any} = useQueryCall({
       functionName: "getPrincipalToHashValue",
       args: [
-          identity?.getPrincipal()
+        identity?.getPrincipal()
+      ]
+    })
+    const { data: eligible, call: fetchEligigble }: { data: any, call: any} = useUpdateCall({
+      functionName: "checkAchievementEligibility",
+      args: [
+        identity?.getPrincipal(),
+        []
       ]
     })
     const { call: generateHash }: { call: any} = useUpdateCall({
@@ -48,6 +49,14 @@ export const AchievementInner = ({ useQueryCall, useUpdateCall }: { useQueryCall
             []
         ]
     })
+
+    useEffect(() => {
+      (async () => {
+        await fetchEligigble();
+      })()
+    }, [])
+
+    console.log(hash, 'hash');
 
     const isAchievementReceived = postMessage?.type === 'RECEIVED_ACHIEVEMENT' || (hash?.Ok && !postMessage?.type);
    
