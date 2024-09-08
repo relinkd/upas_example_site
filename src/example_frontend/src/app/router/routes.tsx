@@ -1,5 +1,4 @@
-import { TestPage } from 'pages/test';
-import { ConnectPage } from 'pages/connect';
+import { TestPage, ConnectPage, FeedPage, FormPage } from 'pages';
 
 import { RoutesProps } from './types';
 
@@ -12,5 +11,15 @@ export const appRoutes: RoutesProps = {
   connect: {
     path: '/connect',
     component: <ConnectPage />
+  },
+  feed: {
+    path: '/feed',
+    component: <FeedPage />,
+    isProtected: true
+  },
+  form: {
+    path: '/form',
+    component: <FormPage />,
+    isProtected: true
   }
 };

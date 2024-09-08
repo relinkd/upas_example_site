@@ -5,4 +5,10 @@ export const routes = {
   test: {
     path: '/',
   },
+  feed: {
+    path: '/feed',
+  },
+  form: {
+    path: '/form',
+  },
 };
