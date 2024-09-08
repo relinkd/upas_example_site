@@ -7,6 +7,7 @@ import { useEffect } from 'react';
 import { useShallowSelector } from 'shared';
 import { userModel } from 'entities/user';
 import { useDispatch } from 'react-redux';
+import { WithFeedBackendProvider } from './providers/with-feed-backend';
 
 import 'react-toastify/dist/ReactToastify.css';
 import './appStyles/index.scss';
@@ -33,4 +34,4 @@ const App = () => {
   );
 };
 
-export default withProviders(withRouter, withTheme, withStore, withPersistor, WithPostMessage, WithICConnect, WithReputationProvider)(App);
+export default withProviders(withRouter, withTheme, withStore, withPersistor, WithPostMessage, WithICConnect, WithReputationProvider, WithFeedBackendProvider)(App);

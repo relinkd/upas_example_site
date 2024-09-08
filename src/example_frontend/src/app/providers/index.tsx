@@ -5,6 +5,7 @@ export * from './with-ic-connect';
 export * from './with-persistor';
 export * from './with-postmessage';
 export * from './with-reputation-module';
+export * from './with-feed-backend';
 
 export const withProviders =
   (...providers: any[]) =>

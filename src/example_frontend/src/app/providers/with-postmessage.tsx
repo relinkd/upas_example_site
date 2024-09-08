@@ -12,8 +12,6 @@ export const WithPostMessage: FC<PropsWithChildren> = ({ children }) => {
             return;
           }
 
-          console.log(event.data, 'event data')
-
           dispatch(userModel.userActions.updateUserState({
             postMessage: {
                 type: event.data.type,
