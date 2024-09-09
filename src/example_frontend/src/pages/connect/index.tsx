@@ -43,7 +43,7 @@ export const ConnectPage = () => {
   }, [authenticated, navigate]);
 
   return (
-    <>
+    <Layout>
       <Typography variant="h1" className="center" mt={{ xs: 2, md: 15, lg: 36 }} mb={3.75}>
         Connect your wallet
       </Typography>
@@ -53,6 +53,6 @@ export const ConnectPage = () => {
       <Typography className="center" mt={7.5}>
         Sign in by selecting your preffered wallet
       </Typography>
-    </>
+    </Layout>
   );
 };
