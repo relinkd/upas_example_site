@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { Layout } from 'widgets';
 import { useFeedBackendQueryCall } from '../../../app/providers/with-feed-backend';
-import { Typography, Box, Stack, List, ListItem, ListItemText, Divider } from '@mui/material';
-import { COLOR_PURPURE, COLOR_WH, BORDER_RADIUS_M } from 'shared';
+import { Typography, Box, Stack } from '@mui/material';
+import { COLOR_PURPURE, COLOR_WH, BORDER_RADIUS_M, COLOR_BLACK, COLOR_LIGHTER_GRAY } from 'shared';
 
 export const FeedPage: React.FC = () => {
   const { data: fetchedMessages, call: getMessages }: { data: any, call: any } = useFeedBackendQueryCall({
@@ -15,9 +15,8 @@ export const FeedPage: React.FC = () => {
   }, []);
 
   return (
-    <Layout headerText="Message Feed">
+    <Layout headerText="message feed">
       <Stack sx={{
-        marginTop: 20,
         justifyContent: 'center',
         flexDirection: 'row',
         flexWrap: 'wrap'
@@ -27,34 +26,46 @@ export const FeedPage: React.FC = () => {
           background: COLOR_WH, 
           padding: '20px', 
           borderRadius: BORDER_RADIUS_M,
-          marginTop: 5
+          marginTop: 5,
         }}>
           {fetchedMessages && fetchedMessages.length > 0 ? (
-            <List>
+            <Stack spacing={2}>
               {fetchedMessages.map((msg: any, index: number) => (
-                <React.Fragment key={index}>
-                  <ListItem alignItems="flex-start">
-                    <ListItemText
-                      primary={msg.message}
-                      secondary={
-                        <React.Fragment>
-                          <Typography
-                            sx={{ display: 'inline' }}
-                            component="span"
-                            variant="body2"
-                            color="text.primary"
-                          >
-                            Author: 
-                          </Typography>
-                          {` ${msg.author}`}
-                        </React.Fragment>
-                      }
-                    />
-                  </ListItem>
-                  {index < fetchedMessages?.length - 1 && <Divider component="li" />}
-                </React.Fragment>
+                <Box
+                  key={index}
+                  sx={{
+                    boxShadow: '0px 0px 20px -15px #635D95',
+                    borderRadius: BORDER_RADIUS_M,
+                    border: `1px solid ${COLOR_LIGHTER_GRAY}`,
+                    p: 2,
+                  }}
+                >
+                  <Typography
+                    component="p"
+                    variant="body1"
+                    color={COLOR_BLACK}
+                    fontSize={24}
+                    mb={1}
+                  >
+                    {msg.message}
+                  </Typography>
+                  <Typography
+                    component="span"
+                    variant="body2"
+                    color={COLOR_PURPURE}
+                  >
+                    Author: 
+                  </Typography>
+                  <Typography
+                    component="span"
+                    variant="body2"
+                    color={COLOR_BLACK}
+                  >
+                    {` ${msg.author}`}
+                  </Typography>
+                </Box>
               ))}
-            </List>
+            </Stack>
           ) : (
             <Typography sx={{ textAlign: 'center', color: COLOR_PURPURE }}>
               No messages yet. Be the first to post!

@@ -42,7 +42,7 @@ export const FormPage: React.FC = () => {
   };
 
   return (
-    <Layout headerText="Submit Your Message">
+    <Layout headerText="submit your message">
       <Stack sx={{
         marginTop: 20,
         justifyContent: 'center',
