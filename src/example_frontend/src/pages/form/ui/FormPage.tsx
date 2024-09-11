@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Layout } from 'widgets';
 import { useFeedBackendUpdateCall, useFeedBackendQueryCall } from '../../../app/providers/with-feed-backend';
-import { TextField, Button, Typography, Box, Stack } from '@mui/material';
-import { COLOR_PURPURE, COLOR_WH, COLOR_BLACK, BORDER_RADIUS_M, COLOR_LIGHTER_GRAY } from 'shared';
+import { TextField, Typography, Box, Stack } from '@mui/material';
+import { COLOR_PURPURE, COLOR_WH, COLOR_BLACK, BORDER_RADIUS_M, COLOR_LIGHTER_GRAY, GradientButtonWraper, BORDER_RADIUS_S } from 'shared';
 import { getToastMessage } from 'shared/lib';
 import { useAuth } from "@ic-reactor/react";
 import { HeaderText } from 'features';
+import { GradientButton } from 'shared';
 
 export const FormPage: React.FC = () => {
   const [message, setMessage] = useState('');
@@ -74,29 +75,15 @@ export const FormPage: React.FC = () => {
                 disabled={isPosted}
                 margin="normal"
               />
-              <Button 
-                type="submit"
-                variant="contained"
-                disabled={isPosted}
-                fullWidth
-                sx={{
-                  backgroundColor: COLOR_PURPURE,
-                  color: COLOR_WH,
-                  padding: '10px 20px',
-                  fontSize: '16px',
-                  marginTop: 2,
-                  '&:hover': {
-                    backgroundColor: COLOR_PURPURE,
-                    opacity: 0.9,
-                  },
-                  '&:disabled': {
-                    backgroundColor: COLOR_LIGHTER_GRAY,
-                    color: COLOR_BLACK
-                  }
-                }}
-              >
-                Submit Message
-              </Button>
+              <GradientButtonWraper sx={{ borderRadius: BORDER_RADIUS_S, marginTop: 2 }}>
+                <GradientButton 
+                  type="submit"
+                  disabled={isPosted}
+                  fullWidth
+                >
+                  Submit Message
+                </GradientButton>
+              </GradientButtonWraper>
             </Box>
           )}
           {isPosted && (

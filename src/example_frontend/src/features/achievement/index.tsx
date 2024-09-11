@@ -1,11 +1,12 @@
 import { Stack, Button, Typography, Box } from '@mui/material';
-import { useShallowSelector, COLOR_PURPURE, COLOR_WH, COLOR_BLACK, GradientButtonWraper, BORDER_RADIUS_M, COLOR_LIGHTER_GRAY } from 'shared';
+import { useShallowSelector, COLOR_PURPURE, COLOR_WH, COLOR_BLACK, GradientButtonWraper, BORDER_RADIUS_M, COLOR_LIGHTER_GRAY, BORDER_RADIUS_S } from 'shared';
 import { userModel } from 'entities/user';
 import { idlFactory } from '../../../declarations/achievement';
 import { createActorContext , useAuth } from "@ic-reactor/react";
 import { Principal } from '@dfinity/principal';
 import { useEffect } from 'react';
 import AchievementIcon from './assets/icon.svg?react';
+import { GradientButton } from 'shared';
 
 export const Achievement = ({ canisterId }: { canisterId: string}) => {
     const {
@@ -146,32 +147,19 @@ export const AchievementInner = ({ useQueryCall, useUpdateCall }: { useQueryCall
               </Typography>
             </Box>
           </Box>
-          <Button 
-            disabled={isAchievementReceived} 
-            variant="contained" 
-            fullWidth
-            sx={{
-              backgroundColor: COLOR_PURPURE,
-              color: COLOR_WH,
-              padding: '10px 20px',
-              fontSize: '16px',
-              '&:hover': {
-                backgroundColor: COLOR_PURPURE,
-                opacity: 0.9,
-              },
-              '&:disabled': {
-                backgroundColor: COLOR_LIGHTER_GRAY,
-                color: COLOR_BLACK
-              }
-            }} 
-            onClick={() => {
-              if(isAchievementReceived) return
-              if(eligible?.Ok && !identity_wallet) sendMessage();
-              else if(eligible?.Ok && identity_wallet) generateHashFunc();
-            }}
-          >
-            {status}
-          </Button>
+          <GradientButtonWraper sx={{ borderRadius: BORDER_RADIUS_S }}>
+            <GradientButton 
+              disabled={isAchievementReceived} 
+              fullWidth
+              onClick={() => {
+                if(isAchievementReceived) return
+                if(eligible?.Ok && !identity_wallet) sendMessage();
+                else if(eligible?.Ok && identity_wallet) generateHashFunc();
+              }}
+            >
+              {status}
+            </GradientButton>
+          </GradientButtonWraper>
         </Box>
       </Stack>
     );

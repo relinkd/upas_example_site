@@ -1,31 +1,26 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { Stack, Typography, Button } from '@mui/material';
+import { Stack, Typography } from '@mui/material';
 import { Layout } from 'widgets';
-import { routes, GradientButtonWraper, BORDER_RADIUS_S, COLOR_BLACK } from 'shared';
+import { routes, GradientButtonWraper, BORDER_RADIUS_S } from 'shared';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@ic-reactor/react';
-
+import { GradientButton } from 'shared';
 
 export const ConnectButton = () => {
   const { login } = useAuth();
 
   return (
-    <GradientButtonWraper sx={{ borderRadius: BORDER_RADIUS_S, '&:hover': {boxShadow: '0px 0px 40px -15px #635D95'} }}>
-      <Button sx={{
-        backgroundColor: 'white',
-        color: COLOR_BLACK,
-        borderRadius: BORDER_RADIUS_S,
-        fontSize: '20px',
-        padding: '10px 30px',
-        '&:hover': {
-          backgroundColor: 'white',
-        }
-      }} onClick={() => {
+    <GradientButtonWraper sx={{ borderRadius: BORDER_RADIUS_S }}>
+      <GradientButton
+        onClick={() => {
           login({
             identityProvider: `${import.meta.env.VITE_CANISTER_URL_INTERNET_IDENTITY}#authorize`
           })
-      }}>Connect</Button>
+        }}
+      >
+        Connect
+      </GradientButton>
     </GradientButtonWraper>
   )
 }
@@ -48,7 +43,7 @@ export const ConnectPage = () => {
         <ConnectButton />
       </Stack>
       <Typography className="center" mt={7.5}>
-        Sign in by selecting your preffered wallet
+        Sign in by selecting your preferred wallet
       </Typography>
     </Layout>
   );
