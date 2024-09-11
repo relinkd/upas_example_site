@@ -1,10 +1,11 @@
-import { Stack, Button, Typography } from '@mui/material';
-import { useShallowSelector, COLOR_PURPURE, COLOR_WH, COLOR_BLACK, GradientButtonWraper, BORDER_RADIUS_M } from 'shared';
+import { Stack, Button, Typography, Box } from '@mui/material';
+import { useShallowSelector, COLOR_PURPURE, COLOR_WH, COLOR_BLACK, GradientButtonWraper, BORDER_RADIUS_M, COLOR_LIGHTER_GRAY } from 'shared';
 import { userModel } from 'entities/user';
 import { idlFactory } from '../../../declarations/achievement';
 import { createActorContext , useAuth } from "@ic-reactor/react";
 import { Principal } from '@dfinity/principal';
 import { useEffect } from 'react';
+import AchievementIcon from './assets/icon.svg?react';
 
 export const Achievement = ({ canisterId }: { canisterId: string}) => {
     const {
@@ -110,26 +111,68 @@ export const AchievementInner = ({ useQueryCall, useUpdateCall }: { useQueryCall
         flexDirection: 'row',
         flexWrap: 'wrap'
       }}>
-        <GradientButtonWraper sx={{ borderRadius: BORDER_RADIUS_M, marginTop: 10 }}>
-          <Stack width="200px" pt={10} sx={{ background: COLOR_WH, padding: '20px', borderRadius: BORDER_RADIUS_M }}>
-            <Typography sx={{ textAlign: 'center' }}>You can check your eligibility and receive achievement "Early Adopter" with this button</Typography>
-            <Button disabled={isAchievementReceived} variant="contained" sx={{
+        <Box sx={{ 
+          width: "600px", 
+          background: COLOR_WH, 
+          padding: '20px 30px', 
+          borderRadius: BORDER_RADIUS_M,
+          boxShadow: '0px 0px 20px -15px #635D95',
+          border: `1px solid ${COLOR_LIGHTER_GRAY}`,
+          paddingBottom: 5,
+          paddingTop: 5
+        }}>
+          <Box sx={{
+            display: 'flex',
+            alignItems: 'center',
+            marginBottom: 8,
+            justifyContent: 'space-evenly'
+          }}>
+            <Box sx={{ flex: '0 0 auto', marginRight: 3 }}>
+              <AchievementIcon width="91" height="91" />
+            </Box>
+            <Box sx={{ width: '50%' }}>
+              <Typography 
+                variant="h5" 
+                sx={{ 
+                  color: COLOR_BLACK, 
+                  marginBottom: 1,
+                  fontWeight: 'bold'
+                }}
+              >
+                UPAS Early Adopter
+              </Typography>
+              <Typography>
+                Send a message to the feed and receive your "Early UPAS Adopter" achievement
+              </Typography>
+            </Box>
+          </Box>
+          <Button 
+            disabled={isAchievementReceived} 
+            variant="contained" 
+            fullWidth
+            sx={{
               backgroundColor: COLOR_PURPURE,
-              marginTop: 5,
+              color: COLOR_WH,
+              padding: '10px 20px',
+              fontSize: '16px',
               '&:hover': {
-                color: COLOR_WH
+                backgroundColor: COLOR_PURPURE,
+                opacity: 0.9,
               },
               '&:disabled': {
+                backgroundColor: COLOR_LIGHTER_GRAY,
                 color: COLOR_BLACK
               }
-            }} onClick={() => {
+            }} 
+            onClick={() => {
               if(isAchievementReceived) return
               if(eligible?.Ok && !identity_wallet) sendMessage();
               else if(eligible?.Ok && identity_wallet) generateHashFunc();
-
-            }}>{status}</Button>
-          </Stack>
-        </GradientButtonWraper>
+            }}
+          >
+            {status}
+          </Button>
+        </Box>
       </Stack>
-  );
+    );
 }
