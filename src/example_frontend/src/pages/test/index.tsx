@@ -12,7 +12,7 @@ export const TestPage = () => {
   console.log(identity?.getPrincipal()?.toText());
 
   return (
-    <Layout>
+    <Layout headerText="Achievement Page">
       <Stack flexDirection="column" alignItems="center" width={1} maxWidth={1}>
         <Achievement canisterId={process.env.CANISTER_ID_ACHIEVEMENT!}/>
       </Stack>

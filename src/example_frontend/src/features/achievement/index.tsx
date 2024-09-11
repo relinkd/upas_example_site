@@ -110,8 +110,6 @@ export const AchievementInner = ({ useQueryCall, useUpdateCall }: { useQueryCall
         flexDirection: 'row',
         flexWrap: 'wrap'
       }}>
-        <Typography sx={{ textAlign: 'center' }} width={1} variant='h2'>Cool ICP Project</Typography>
-
         <GradientButtonWraper sx={{ borderRadius: BORDER_RADIUS_M, marginTop: 10 }}>
           <Stack width="200px" pt={10} sx={{ background: COLOR_WH, padding: '20px', borderRadius: BORDER_RADIUS_M }}>
             <Typography sx={{ textAlign: 'center' }}>You can check your eligibility and receive achievement "Early Adopter" with this button</Typography>

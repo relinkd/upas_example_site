@@ -43,11 +43,8 @@ export const ConnectPage = () => {
   }, [authenticated, navigate]);
 
   return (
-    <Layout>
-      <Typography variant="h1" className="center" mt={{ xs: 2, md: 15, lg: 36 }} mb={3.75}>
-        Connect your wallet
-      </Typography>
-      <Stack direction={{ xs: 'column', md: 'row' }} spacing={1} justifyContent="center" alignItems="center">
+    <Layout headerText="Connect your wallet">
+      <Stack direction={{ xs: 'column', md: 'row' }} spacing={1} pt={10} justifyContent="center" alignItems="center">
         <ConnectButton />
       </Stack>
       <Typography className="center" mt={7.5}>

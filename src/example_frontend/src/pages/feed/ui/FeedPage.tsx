@@ -15,15 +15,13 @@ export const FeedPage: React.FC = () => {
   }, []);
 
   return (
-    <Layout>
+    <Layout headerText="Message Feed">
       <Stack sx={{
         marginTop: 20,
         justifyContent: 'center',
         flexDirection: 'row',
         flexWrap: 'wrap'
       }}>
-        <Typography sx={{ textAlign: 'center' }} width={1} variant='h2'>Message Feed</Typography>
-
         <Box sx={{ 
           width: "600px", 
           background: COLOR_WH, 

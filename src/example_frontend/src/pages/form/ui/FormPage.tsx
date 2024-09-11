@@ -5,6 +5,7 @@ import { TextField, Button, Typography, Box, Stack } from '@mui/material';
 import { COLOR_PURPURE, COLOR_WH, COLOR_BLACK, GradientButtonWraper, BORDER_RADIUS_M } from 'shared';
 import { getToastMessage } from 'shared/lib';
 import { useAuth } from "@ic-reactor/react";
+import { HeaderText } from 'features';
 
 export const FormPage: React.FC = () => {
   const [message, setMessage] = useState('');
@@ -41,14 +42,13 @@ export const FormPage: React.FC = () => {
   };
 
   return (
-    <Layout>
+    <Layout headerText="Submit Your Message">
       <Stack sx={{
         marginTop: 20,
         justifyContent: 'center',
         flexDirection: 'row',
         flexWrap: 'wrap'
       }}>
-        <Typography sx={{ textAlign: 'center' }} width={1} variant='h2'>Submit Your Message</Typography>
 
         <GradientButtonWraper sx={{ borderRadius: BORDER_RADIUS_M, marginTop: 10 }}>
           <Box sx={{ 

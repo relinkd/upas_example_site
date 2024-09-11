@@ -1,11 +1,9 @@
-import { FC, PropsWithChildren, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Box, Container, styled } from '@mui/material';
-import { useShallowSelector } from 'shared';
+import { HeaderText } from 'features';
 
 import { BgSmall } from './assets';
 import { Header } from './header';
-import { Footer } from './footer';
 
 const StyledLayout = styled(Box)((props) => ({
   display: 'flex',
@@ -46,11 +44,12 @@ type LayoutProps = {
   bg?: LayoutBackground;
 };
 
-export const Layout: FC<PropsWithChildren<LayoutProps>> = ({ children, bg = null }) => {
+export const Layout = ({ children, bg = null, headerText }: { children: React.ReactNode, bg?: any, headerText: string }) => {
 
   return (
     <StyledLayout className={bg || ''}>
       <Header />
+      <HeaderText header={headerText} />
       <Container
         sx={{
           pt: 2,
