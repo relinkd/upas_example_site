@@ -19,14 +19,14 @@ export const FeedPage: React.FC = () => {
       <Stack sx={{
         justifyContent: 'center',
         flexDirection: 'row',
-        flexWrap: 'wrap'
+        flexWrap: 'wrap',
+        marginTop: 10,
       }}>
         <Box sx={{ 
           width: "600px", 
           background: COLOR_WH, 
           padding: '20px', 
           borderRadius: BORDER_RADIUS_M,
-          marginTop: 5,
         }}>
           {fetchedMessages && fetchedMessages.length > 0 ? (
             <Stack spacing={2}>

@@ -106,10 +106,10 @@ export const AchievementInner = ({ useQueryCall, useUpdateCall }: { useQueryCall
 
     return (
       <Stack sx={{
-        marginTop: 20,
         justifyContent: 'center',
         flexDirection: 'row',
-        flexWrap: 'wrap'
+        flexWrap: 'wrap',
+        marginTop: 10,
       }}>
         <Box sx={{ 
           width: "600px", 
