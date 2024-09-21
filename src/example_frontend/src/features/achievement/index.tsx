@@ -1,50 +1,38 @@
 import { Stack, Button, Typography, Box } from '@mui/material';
 import { useShallowSelector, COLOR_PURPURE, COLOR_WH, COLOR_BLACK, GradientButtonWraper, BORDER_RADIUS_M, COLOR_LIGHTER_GRAY, BORDER_RADIUS_S } from 'shared';
 import { userModel } from 'entities/user';
-import { idlFactory } from '../../../declarations/achievement';
-import { createActorContext , useAuth } from "@ic-reactor/react";
+import { useAuth } from "@ic-reactor/react";
 import { Principal } from '@dfinity/principal';
 import { useEffect } from 'react';
 import AchievementIcon from './assets/icon.svg?react';
 import { GradientButton } from 'shared';
+import { AchievementProvider, useAchievementQueryCall, useAchievementUpdateCall } from "upas-reputation";
 
 export const Achievement = ({ canisterId }: { canisterId: string}) => {
-    const {
-        ActorProvider: AchievementProvider,
-        useActorState: useAchievementState,
-        useMethod: useAchievementMethod,
-        useQueryCall: useAchievementQueryCall,
-        useUpdateCall: useAchivementUpdateCall,
-      } = createActorContext<any>({
-        canisterId,
-        idlFactory,
-        withDevtools: true,
-      })
-      
       return (
-        <AchievementProvider>
-            <AchievementInner useQueryCall={useAchievementQueryCall} useUpdateCall={useAchivementUpdateCall} />
+        <AchievementProvider canisterId={canisterId}>
+            <AchievementInner />
         </AchievementProvider>
       )
 };
 
-export const AchievementInner = ({ useQueryCall, useUpdateCall }: { useQueryCall: any, useUpdateCall: any}) => {
+export const AchievementInner = () => {
     const { identity } = useAuth();
     const { identity_wallet, postMessage } = useShallowSelector(userModel.selectors.getUser);
-    const { data: hash, call: refetchHash }: { data: any, call: any} = useQueryCall({
+    const { data: hash, call: refetchHash }: { data: any, call: any} = useAchievementQueryCall({
       functionName: "getPrincipalToHashValue",
       args: [
         identity?.getPrincipal()
       ]
     })
-    const { data: eligible, call: fetchEligigble }: { data: any, call: any} = useUpdateCall({
+    const { data: eligible, call: fetchEligigble }: { data: any, call: any} = useAchievementUpdateCall({
       functionName: "checkAchievementEligibility",
       args: [
         identity?.getPrincipal(),
         []
       ]
     })
-    const { call: generateHash }: { call: any} = useUpdateCall({
+    const { call: generateHash }: { call: any} = useAchievementUpdateCall({
         functionName: "generateHashToIdentityWallet",
         args: [
             Principal.fromText(identity_wallet as string || identity!.getPrincipal()!.toText()),
