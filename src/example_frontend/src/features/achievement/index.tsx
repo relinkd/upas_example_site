@@ -149,7 +149,7 @@ export const AchievementInner = ({ useQueryCall, useUpdateCall }: { useQueryCall
           </Box>
           <GradientButtonWraper sx={{ borderRadius: BORDER_RADIUS_S }}>
             <GradientButton 
-              disabled={isAchievementReceived} 
+              // disabled={isAchievementReceived}
               fullWidth
               onClick={() => {
                 if(isAchievementReceived) return

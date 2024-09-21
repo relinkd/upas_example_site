@@ -15,8 +15,9 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "types": ["vite/client", "@testing-library/jest-dom"],
-    "baseUrl": "./src/"
+    "types": ["vite/client"],
+    "baseUrl": "./src/",
+    "declaration": true,
   },
   "include": ["src"]
 }
