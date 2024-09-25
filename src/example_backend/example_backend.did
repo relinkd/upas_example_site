@@ -5,5 +5,6 @@ service : {
   getMessages : (nat64, nat64) -> (vec Message) query;
   getPrincipalToIsPosted : (principal) -> (bool) query;
   isController : () -> (bool) query;
+  removeMessage : (nat64) -> (Result);
   writeMessage : (text) -> (Result);
 }

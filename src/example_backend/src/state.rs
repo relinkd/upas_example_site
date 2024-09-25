@@ -65,3 +65,17 @@ pub fn _set_principal_posted(principal: Principal) {
         p.borrow_mut().insert(StorablePrincipal(principal), true);
     });
 }
+
+pub fn _update_message(index: usize, new_content: String) -> Result<(), String> {
+    let index: u64 = index.try_into().unwrap();
+    MESSAGES.with(|messages| {
+        let messages = messages.borrow_mut();
+        if let Some(mut message) = messages.get(index) {
+            message.message = new_content;
+            messages.set(index, &message);
+            Ok(())
+        } else {
+            Err("Message index out of bounds.".to_string())
+        }
+    })
+}

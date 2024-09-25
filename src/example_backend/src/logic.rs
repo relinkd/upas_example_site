@@ -1,6 +1,7 @@
 use ic_cdk::update;
-use crate::state::{_push_message, get_principal_to_is_posted, _set_principal_posted};
+use crate::state::{_push_message, get_principal_to_is_posted, _set_principal_posted, _update_message};
 use crate::storable::Message;
+use crate::access::is_controller;
 
 #[update(name = "writeMessage")]
 pub fn write_message(content: String) -> Result<(), String> {
@@ -25,5 +26,19 @@ pub fn write_message(content: String) -> Result<(), String> {
             Ok(())
         },
         Err(_) => Err("Failed to store the message.".to_string()),
+    }
+}
+
+#[update(name = "removeMessage")]
+pub fn remove_message(index: usize) -> Result<(), String> {
+    // Check if the caller is a controller
+    if !is_controller() {
+        return Err("Only controllers can remove messages.".to_string());
+    }
+    
+    // Update the message content to "message deleted"
+    match _update_message(index, "message deleted".to_string()) {
+        Ok(_) => Ok(()),
+        Err(_) => Err("Failed to remove the message.".to_string()),
     }
 }
