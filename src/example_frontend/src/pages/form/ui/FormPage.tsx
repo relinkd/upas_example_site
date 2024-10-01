@@ -17,13 +17,8 @@ export const FormPage: React.FC = () => {
   });
   const { data: hasPosted, call: checkHasPosted } = useFeedBackendQueryCall({
     functionName: "getPrincipalToIsPosted",
+    args: [identity?.getPrincipal()],
   });
-
-  useEffect(() => {
-    if (identity) {
-      checkHasPosted([identity.getPrincipal()]);
-    }
-  }, [identity]);
 
   useEffect(() => {
     if (hasPosted) {

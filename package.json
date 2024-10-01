@@ -7,6 +7,7 @@
     "scripts": {
       "setup": "npm i --workspaces --if-present && dfx canister create example_backend && dfx generate example_backend && dfx deploy",
       "frontend": "npm start --workspaces --if-present",
+      "frontend:staging": "npm run build --workspaces --if-present --mode staging",
       "indexer": "dfx deploy example_backend -q -y",
   
       "build": "npm build --workspaces --if-present",
